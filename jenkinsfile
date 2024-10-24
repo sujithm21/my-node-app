@@ -1,15 +1,14 @@
 pipeline {
     agent any
-
     tools {
-        NodeJS 'NodeJS' // Name of your NodeJS installation in Jenkins
+        nodejs 'NodeJS' // This must match the name you configured in Jenkins
     }
-
     stages {
         stage('Checkout') {
             steps {
                 // Checkout the code from GitHub
-                git url: 'https://github.com/sujithm21/my-node-app.git', branch: 'main'
+                git url: 'https://github.com/sujithm21/my-node-app.git',
+                branch: 'main'
             }
         }
         stage('Install Dependencies') {
@@ -26,13 +25,11 @@ pipeline {
         }
         stage('Run Selenium Tests') {
             steps {
-                // Run Selenium tests (this assumes you have a script for running your tests)
-                // You may need to adjust this command based on your test setup
+                // Run Selenium tests
                 sh 'mvn test -Dtest=YourSeleniumTestClass'
             }
         }
     }
-    
     post {
         success {
             echo 'Build and tests were successful!'
@@ -41,7 +38,6 @@ pipeline {
             echo 'Build or tests failed!'
         }
         always {
-            // Clean up or send notifications
             echo 'Cleaning up...'
         }
     }
